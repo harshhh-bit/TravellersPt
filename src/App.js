@@ -15,7 +15,8 @@ function App() {
   const currentUser = "harshit";
   const [travels, setTravels] = React.useState([]);
   const [currentPlaceId, setCurrentPlaceId] = React.useState(null);
-  
+  const [newPlace, setNewPlace] = React.useState(null);
+
   React.useEffect(() => {
     const getTravels = async () => {
       try {
@@ -28,9 +29,18 @@ function App() {
     getTravels();
   }, []);
 
-  const handleMarkerClick = (id) => {
+  const handleMarkerClick = (id, lat, long) => {
     setCurrentPlaceId(id);
-  }
+    // need change
+  };
+
+  const handleDblClick = (event) => {
+    const [long, lat] = event.lngLat;
+    setNewPlace({
+      lat,
+      long
+    });
+  };
 
   return (
     <>
@@ -45,6 +55,8 @@ function App() {
         }}
         style={{width: "100vw", height: "91.5vh"}}
         mapStyle="mapbox://styles/mapbox/streets-v9"
+        onDblClick={handleDblClick}
+        // transitionDuration="200"
       >
         {travels.map(travel => (
           <>
@@ -54,7 +66,7 @@ function App() {
                   color: travel.username === currentUser ? "tomato" : "slateblue", 
                   cursor: "pointer" 
                 }} 
-                onClick={() => handleMarkerClick(travel._id)}
+                onClick={() => handleMarkerClick(travel._id, travel.lat, travel.long)}
               />
             </Marker>
             {travel._id === currentPlaceId && (
@@ -79,6 +91,28 @@ function App() {
             )}
           </>
         ))}
+        {newPlace && (
+          <Popup 
+            longitude={newPlace.long} 
+            latitude={newPlace.lat}
+            anchor="left"
+            closeButton={true}
+            closeOnClick={false}
+            onClose={() => setNewPlace(null)}
+          >
+            <div>
+              <form>
+                <label>Title</label>
+                <input placeholder="Enter a title" />
+                <label>Blog</label>
+                <textarea placeholder="Share your experience..." />
+                <button type="submit" className="submit-btn">
+                  Add Travel
+                </button>
+              </form>
+            </div>  
+          </Popup>
+        )}
       </Map>
     </>
   );
