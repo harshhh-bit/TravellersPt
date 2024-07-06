@@ -3,8 +3,10 @@ import * as React from 'react';
 import { CssBaseline } from '@material-ui/core'
 
 import Header from './components/Header/Header'
-import Map, {Marker} from 'react-map-gl';
+import Map, {Marker, Popup} from 'react-map-gl';
 import TourIcon from '@mui/icons-material/Tour';
+
+import "./app.css"
 
 function App() {
   return (
@@ -24,6 +26,20 @@ function App() {
         <Marker longitude={77} latitude={20} anchor="bottom" >
           <TourIcon style={{ color: "slateblue" }} />
         </Marker>
+        <Popup 
+          longitude={77} 
+          latitude={20}
+          anchor="left">
+          <div className="card">
+            <label>Title</label>
+            <h3 className="title">J&K Diaries</h3>
+            <label>Blog</label>
+            <p className="blog">Beautiful Place. I like it.</p>
+            <label>Information</label>
+            <span className="username">Created by <b>harshit</b></span>
+            <span className="userbio">Travel Enthusiast</span>
+          </div>
+        </Popup>
       </Map>
     </>
   );
