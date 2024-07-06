@@ -16,6 +16,8 @@ function App() {
   const [travels, setTravels] = React.useState([]);
   const [currentPlaceId, setCurrentPlaceId] = React.useState(null);
   const [newPlace, setNewPlace] = React.useState(null);
+  const [title, setTitle] = React.useState(null);
+  const [blog, setBlog] = React.useState(null);
 
   React.useEffect(() => {
     const getTravels = async () => {
@@ -35,12 +37,32 @@ function App() {
   };
 
   const handleDblClick = (event) => {
-    const [long, lat] = event.lngLat;
+    const [lat, long] = event.lngLat;
     setNewPlace({
       lat,
       long
     });
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const newTravel = {
+      username: currentUser,
+      title,
+      blog,
+      lat: newPlace.lat,
+      long: newPlace.long
+    }
+
+    try {
+      const res = await axios.post("/travels", newTravel);
+      setTravels([...travels, res.data]);
+      setNewPlace(null);
+    } catch(err) {
+      console.log(err);
+    }
+  }
 
   return (
     <>
@@ -101,11 +123,17 @@ function App() {
             onClose={() => setNewPlace(null)}
           >
             <div>
-              <form>
+              <form onSubmit={handleSubmit}>
                 <label>Title</label>
-                <input placeholder="Enter a title" />
+                <input 
+                  placeholder="Enter a title" 
+                  onChange={(e) => setTitle(e.target.value)} 
+                />
                 <label>Blog</label>
-                <textarea placeholder="Share your experience..." />
+                <textarea 
+                  placeholder="Share your experience..." 
+                  onChange={(e) => setBlog(e.target.value)}
+                />
                 <button type="submit" className="submit-btn">
                   Add Travel
                 </button>
@@ -121,3 +149,5 @@ function App() {
 export default App;
 
 // 1. TourIcon size dynamics 2. Map style update
+// 3. Marker offset update 1:25:00
+// 4. rating
