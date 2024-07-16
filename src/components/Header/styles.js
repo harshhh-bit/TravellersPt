@@ -1,10 +1,11 @@
-import { alpha, makeStyles } from '@material-ui/core/styles';
+import { alpha } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 
 export default makeStyles((theme) => ({
     title: {
         display: 'none',
         [theme.breakpoints.up('sm')]: {
-          display: 'block',
+            display: 'block',
         },
     },
     search: {
@@ -17,9 +18,6 @@ export default makeStyles((theme) => ({
         width: '100%',
         [theme.breakpoints.up('sm')]: { marginLeft: theme.spacing(3), width: 'auto' },
     },
-    searchIcon: {
-        padding: theme.spacing(0, 2), height: '100%', position: 'absolute', pointerEvents: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center',
-    },
     inputRoot: {
         color: 'inherit',
     },
@@ -28,5 +26,5 @@ export default makeStyles((theme) => ({
     },
     toolbar: {
         display: 'flex', justifyContent: 'space-between',
-    }
-}));
+    },
+  }));
