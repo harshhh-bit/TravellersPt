@@ -1,5 +1,14 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
+
+app.use(cors(
+    {
+        origin: "https://travellers-pt-zeta.vercel.app",
+        methods: ["POST", "GET"],
+        credentials: true
+    }
+));
 
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
