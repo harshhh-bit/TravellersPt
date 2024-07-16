@@ -112,7 +112,7 @@ function App() {
         onDblClick={ currentUser && handleDblClick}
         transitionDuration="200"
       >
-        {travels.map(travel => (
+        {travels && travels.map(travel => (
           (travel.username === currentUser || showBlogs) &&
           <>
             <Marker 
