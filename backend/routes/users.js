@@ -5,6 +5,7 @@ const User = require('../models/User');
 
 // register
 router.post('/register', async (req,res) => {
+    console.log("Inside /register");
     try {
         // generate new password
         const salt = await bcrypt.genSalt(10);
@@ -28,6 +29,7 @@ router.post('/register', async (req,res) => {
 
 // login
 router.post('/login', async (req,res) => {
+    console.log("Inside /login");
     try {
         // find user
         const user = await User.findOne({username: req.body.username});
