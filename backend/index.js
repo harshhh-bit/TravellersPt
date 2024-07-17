@@ -2,9 +2,9 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
-//const dotenv = require('dotenv');
+const dotenv = require('dotenv');
 
-//dotenv.config();
+dotenv.config();
 
 app.use(cors(
     {
@@ -18,14 +18,13 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json({ limit: '10mb' }));
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
-const mongoUrl = "mongodb+srv://harshitgoel003:H%40Goel2003@cluster0.nvn4hgl.mongodb.net/TravellersPt?retryWrites=true&w=majority&appName=Cluster0"
-//process.env.MONGO_URL;
+const mongoUrl = process.env.MONGO_URL;
 
 if (!mongoUrl) {
     throw new Error("MongoDB connection string is not defined in .env");
 }
 
-mongoose.connect(MONGO_URL, { tls: true })
+mongoose.connect(mongoUrl, { tls: true })
     .then(() => {
         console.log("MongoDB Connected!")
     })
