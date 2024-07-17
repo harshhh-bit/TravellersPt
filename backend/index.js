@@ -18,7 +18,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json({ limit: '10mb' }));
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
-const mongoUrl = ;
+const mongoUrl = "mongodb+srv://harshitgoel003:H%40Goel2003@cluster0.nvn4hgl.mongodb.net/TravellersPt?retryWrites=true&w=majority&appName=Cluster0";
 
 if (!mongoUrl) {
     throw new Error("MongoDB connection string is not defined in .env");
